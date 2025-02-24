@@ -1,0 +1,33 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string input;
+        string journalContent = "Captain's log\n";
+        journalContent += $"Stardate {DateTime.Now:yyyy-MM-dd}\n";
+
+        Console.WriteLine("Enter 'start' to begin writing to the journal.");
+        while ((input = Console.ReadLine()) != null)
+        {
+            if (input.Equals("start", StringComparison.OrdinalIgnoreCase))
+            {
+                while ((input = Console.ReadLine()) != null)
+                {
+                    if (input.Equals("stop", StringComparison.OrdinalIgnoreCase))
+                    {
+                        break;
+                    }
+                    journalContent += input + "\n";
+                }
+                break;
+            }
+        }
+
+        string fileName = $"{DateTime.Now:yyyy-MM-dd}.txt";
+        File.WriteAllText(fileName, journalContent + "\nJean-Luc Picard");
+        Console.WriteLine($"Journal saved as {fileName}");
+    }
+}
